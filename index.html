@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Survey</title>
+</head>
+<body>
+    <h2>What's your favorite color?</h2>
+    <form id="surveyForm">
+        <input type="radio" id="colorRed" name="favoriteColor" value="Red">
+        <label for="colorRed">Red</label><br>
+        <input type="radio" id="colorBlue" name="favoriteColor" value="Blue">
+        <label for="colorBlue">Blue</label><br>
+        <input type="radio" id="colorGreen" name="favoriteColor" value="Green">
+        <label for="colorGreen">Green</label><br>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <div id="thankYouMessage" style="display:none;">
+        <p>Thank you for your submission!</p>
+    </div>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('surveyForm');
+            const selectedColor = form.favoriteColor.value;
+            localStorage.setItem('favoriteColor', selectedColor);
+
+            document.getElementById('surveyForm').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'block';
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem('favoriteColor')) {
+                document.getElementById('surveyForm').style.display = 'none';
+                document.getElementById('thankYouMessage').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
