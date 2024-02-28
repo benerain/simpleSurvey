@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Simple Survey</title>
+    <title>Questionnaire</title>
 </head>
 <body>
     <h2>What's your favorite color?</h2>
@@ -24,17 +24,10 @@
         function submitForm() {
             const form = document.getElementById('surveyForm');
             const selectedColor = form.favoriteColor.value;
-            localStorage.setItem('favoriteColor', selectedColor);
+            // Code to send data to GitHub Gist or an alternative method goes here
 
             document.getElementById('surveyForm').style.display = 'none';
             document.getElementById('thankYouMessage').style.display = 'block';
-        }
-
-        window.onload = function() {
-            if (localStorage.getItem('favoriteColor')) {
-                document.getElementById('surveyForm').style.display = 'none';
-                document.getElementById('thankYouMessage').style.display = 'block';
-            }
         }
     </script>
 </body>
