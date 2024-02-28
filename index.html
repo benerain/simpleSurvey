@@ -24,21 +24,33 @@
         function submitForm() {
             const form = document.getElementById('surveyForm');
             const selectedColor = form.favoriteColor.value;
+            const githubToken = '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'; // WARNING: This exposes your token in client-side code
 
-            fetch('https://script.google.com/macros/s/AKfycbwRYeZNe2VgFu8ScyKWJjfFhelo8BnlSTzBHSpXvYug-rEgqrWSlg8PanM74_MKeXU/exec', {
+            fetch('https://api.github.com/gists', {
                 method: 'POST',
-                mode: 'no-cors', // This is important for avoiding CORS issues
-                body: JSON.stringify({favoriteColor: selectedColor}),
                 headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => {
-                console.log('Success:', response);
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                },
+                body: JSON.stringify({
+                    "description": "Survey response",
+                    "public": true,
+                    "files": {
+                        "response.txt": {
+                            "content": `Favorite color: ${selectedColor}`
+                        }
+                    }
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Gist created:', data.html_url);
                 document.getElementById('surveyForm').style.display = 'none';
                 document.getElementById('thankYouMessage').style.display = 'block';
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 console.error('Error:', error);
-    });
+            });
 }
         
     </script>
