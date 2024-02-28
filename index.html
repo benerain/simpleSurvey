@@ -24,11 +24,23 @@
         function submitForm() {
             const form = document.getElementById('surveyForm');
             const selectedColor = form.favoriteColor.value;
-            // Code to send data to GitHub Gist or an alternative method goes here
 
-            document.getElementById('surveyForm').style.display = 'none';
-            document.getElementById('thankYouMessage').style.display = 'block';
-        }
+            fetch('https://script.google.com/macros/s/AKfycbwRYeZNe2VgFu8ScyKWJjfFhelo8BnlSTzBHSpXvYug-rEgqrWSlg8PanM74_MKeXU/exec', {
+                method: 'POST',
+                mode: 'no-cors', // This is important for avoiding CORS issues
+                body: JSON.stringify({favoriteColor: selectedColor}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                console.log('Success:', response);
+                document.getElementById('surveyForm').style.display = 'none';
+                document.getElementById('thankYouMessage').style.display = 'block';
+            }).catch((error) => {
+                console.error('Error:', error);
+    });
+}
+        
     </script>
 </body>
 </html>
